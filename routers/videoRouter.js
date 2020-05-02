@@ -1,6 +1,19 @@
 import express from "express";
+import routes from "../routes";
+import {
+  videos,
+  upload,
+  videoDetail,
+  editVideo,
+  deleteVideo,
+} from "../controllers/videoController";
 
 const videoRouter = express.Router();
 
-export default videoRouter; //이 파일을 보낼 거야는 default
-//export const~~  <이 변수만 보낼 거야
+videoRouter.get(routes.videos, videos);
+videoRouter.get(routes.upload, upload);
+videoRouter.get(routes.videoDetail, videoDetail);
+videoRouter.get(routes.editVideo, editVideo);
+videoRouter.get(routes.deleteVideo, deleteVideo);
+
+export default videoRouter;
