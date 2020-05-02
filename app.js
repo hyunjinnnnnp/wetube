@@ -3,15 +3,10 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
-import { userRouter } from "./router"; //default 로 import하는 거랑 다름
-//export -> import
-
+import userRouter from "./routers/userRouter";
+import videoRouter from "./routers/videoRouter";
+import globalRouter from "./routers/globalRouter";
 const app = express();
-
-const handleHome = (req, res) => res.send("Hello from my ass");
-//클라이언트에게 실제로 반환되는
-
-const handleProfile = (req, res) => res.send("You are on my profile");
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -19,11 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(morgan("dev"));
 
-app.get("/", handleHome);
-
-app.get("/profile", handleProfile);
-
+app.use("/", globalRouter);
 app.use("/user", userRouter);
-/*누군가user라우터로 접속하면 유저라우터 전체를 사용하겠다*/
+app.use("/video", videoRouter);
 
 export default app;
